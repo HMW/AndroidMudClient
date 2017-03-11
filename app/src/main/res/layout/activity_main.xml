@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical" >
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:autoLink="web"
+    android:text="http://androidSRC.net/"
+    android:textStyle="bold" />
+
+  <EditText
+    android:id="@+id/address_edittext"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="218.161.10.205" />
+
+  <EditText
+    android:id="@+id/port_edittext"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="8888" />
+
+  <Button
+    android:id="@+id/connect_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:text="Connect" />
+
+  <Button
+    android:id="@+id/clear_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Clear" />
+
+  <TextView
+    android:id="@+id/response_textview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+</LinearLayout>
