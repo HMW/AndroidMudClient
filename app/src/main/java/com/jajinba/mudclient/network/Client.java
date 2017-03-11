@@ -4,9 +4,7 @@ import android.os.AsyncTask;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -26,36 +24,22 @@ public class Client extends AsyncTask<Object, Object, String> {
 
   @Override
   protected String doInBackground(Object... arg0) {
-
     Socket socket = null;
 
     try {
       socket = new Socket(dstAddress, dstPort);
-
-      /*
-      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
-      byte[] buffer = new byte[1024];
-
-      int bytesRead;
-      InputStream inputStream = socket.getInputStream();
-      */
-      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-
-			/*
-       * notice: inputStream.read() will block if no data return
-			 */
-			/*
-      while ((bytesRead = inputStream.read(buffer)) != -1) {
-        byteArrayOutputStream.write(buffer, 0, bytesRead);
-        response += byteArrayOutputStream.toString("UTF-8");
-      }
-      */
+      BufferedReader bufferedReader =
+          new BufferedReader(new InputStreamReader(socket.getInputStream(), "big5"));
 			String rawResult;
       while ((rawResult = bufferedReader.readLine()) != null) {
+        response += rawResult;
+        /*
         if (!rawResult.isEmpty()) {
           response += rawResult;
           break;
+          break;
         }
+        */
       }
 
     } catch (UnknownHostException e) {
