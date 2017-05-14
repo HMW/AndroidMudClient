@@ -2,6 +2,7 @@ package com.jajinba.mudclient.network;
 
 
 import android.util.Log;
+import com.jajinba.mudclient.util.StringUtil;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -17,8 +18,6 @@ public class SocketClient {
     void onServerResponse(String response);
   }
 
-  private Thread thread;
-  private Socket socket;
   private BufferedReader reader;
   private BufferedWriter writer;
 
@@ -31,7 +30,7 @@ public class SocketClient {
     @Override
     public void run() {
       try {
-        socket = new Socket(ipAddress, port);
+        Socket socket = new Socket(ipAddress, port);
         reader = new BufferedReader(
             new InputStreamReader(socket.getInputStream(), "big5"));
         writer = new BufferedWriter(
@@ -43,11 +42,10 @@ public class SocketClient {
       while(flag) {
         try {
           // read response
-          String response = "";
           String rawResponse;
           while((rawResponse = reader.readLine()) != null) {
-            response += rawResponse;
-            if (callback != null) {
+            if (callback != null && StringUtil.isNotEmpty(rawResponse)) {
+              rawResponse = StringUtil.decodeAnsiColorEncode(rawResponse);
               callback.onServerResponse(rawResponse);
             }
           }
@@ -71,8 +69,7 @@ public class SocketClient {
 
   public void start() {
     flag = true;
-    thread = new Thread(marsRunnable);
-    thread.start();
+    new Thread(marsRunnable).start();
   }
 
   public void sendCommand(String command) {
